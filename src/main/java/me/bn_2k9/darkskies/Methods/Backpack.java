@@ -10,12 +10,13 @@ public class Backpack {
     static String prefix = DarkSkies.Colorcode(pl.getConfig().getString("Plugin.Prefix"));
     public static void openBackpack(Player p) {
 
-        if (p.getInventory().getItemInOffHand().getType() == Material.PAPER && p.getInventory().getItemInOffHand().getItemMeta().getCustomModelData() ==  pl.getConfig().getInt("Features.Backpack.CustomModelData")){
-            p.openInventory(p.getEnderChest());
-        } else {
-            p.sendMessage(prefix + DarkSkies.Colorcode(pl.getConfig().getString("Messages:")));
+        if (p.getInventory().getItemInOffHand().getItemMeta().hasCustomModelData()) {
+            if (p.getInventory().getItemInOffHand().getType() == Material.PAPER && p.getInventory().getItemInOffHand().getItemMeta().getCustomModelData() ==  pl.getConfig().getInt("Features.Backpack.CustomModelData")){
+                p.openInventory(p.getEnderChest());
+            } else {
+                p.sendMessage(prefix + DarkSkies.Colorcode(pl.getConfig().getString("Messages:")));
+            }
         }
-
 
     }
 
