@@ -14,8 +14,10 @@ public class Backpack {
             if (p.getInventory().getItemInOffHand().getType() == Material.PAPER && p.getInventory().getItemInOffHand().getItemMeta().getCustomModelData() ==  pl.getConfig().getInt("Features.Backpack.CustomModelData")){
                 p.openInventory(p.getEnderChest());
             } else {
-                p.sendMessage(prefix + DarkSkies.Colorcode(pl.getConfig().getString("Messages:")));
+                p.sendMessage(prefix + DarkSkies.Colorcode(pl.getConfig().getString("Messages.No-BackPack")));
             }
+        } else  {
+            p.sendMessage(prefix + DarkSkies.Colorcode(pl.getConfig().getString("Messages.No-BackPack")));
         }
 
     }
