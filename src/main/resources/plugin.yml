@@ -1,0 +1,6 @@
+name: DarkSkies
+version: '${project.version}'
+main: me.bn_2k9.darkskies.DarkSkies
+api-version: '1.20'
+load: STARTUP
+authors: [BN_2K9]
