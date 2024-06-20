@@ -1,0 +1,12 @@
+## BasicPlugin Settings, Like the Prefix Etc.
+Plugin:
+  Prefix: "&f[&8DarkSkies&f]"
+## All The Features Of The Plugin.
+Features:
+  ## The BackPack Feature.
+  Backpack:
+    ## This Determinate What Texture The BackPack Has.
+    CustomModelData: 10124
+## All The Messages Used Inside The Plugin.
+Messages:
+  No-BackPack: "&cYou Don't Have an backpack Equipped!"
