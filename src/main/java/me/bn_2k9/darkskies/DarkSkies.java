@@ -1,5 +1,6 @@
 package me.bn_2k9.darkskies;
 
+import me.bn_2k9.darkskies.Listeners.Listeners;
 import me.bn_2k9.darkskies.Methods.Backpack;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,10 +16,11 @@ public final class DarkSkies extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        p.getServer().getPluginManager().registerEvents(new Listeners(), this);
 
         p.saveDefaultConfig();
 
-        Bukkit.getLogger().info("Stared!");
+        Bukkit.getLogger().info(Colorcode(p.getConfig().getString("Plugin.Prefix")) + " Started");
 
     }
 
@@ -26,7 +28,7 @@ public final class DarkSkies extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
 
-        Bukkit.getLogger().info("Shutdown!");
+        Bukkit.getLogger().info(Colorcode(p.getConfig().getString("Plugin.Prefix")) + " Shutdown");
 
     }
 

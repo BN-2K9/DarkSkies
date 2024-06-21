@@ -9,17 +9,15 @@ public class Backpack {
     static Plugin pl = DarkSkies.getPlugin(DarkSkies.class);
     static String prefix = DarkSkies.Colorcode(pl.getConfig().getString("Plugin.Prefix"));
     public static void openBackpack(Player p) {
-
-        if (p.getInventory().getItemInOffHand().getItemMeta().hasCustomModelData()) {
-            if (p.getInventory().getItemInOffHand().getType() == Material.PAPER && p.getInventory().getItemInOffHand().getItemMeta().getCustomModelData() ==  pl.getConfig().getInt("Features.Backpack.CustomModelData")){
-                p.openInventory(p.getEnderChest());
-            } else {
-                p.sendMessage(prefix + DarkSkies.Colorcode(pl.getConfig().getString("Messages.No-BackPack")));
+        if (p.getInventory().getItemInMainHand().getType() != Material.AIR) {
+            if (p.getInventory().getItemInOffHand().getItemMeta().hasCustomModelData()) {
+                if (p.getInventory().getItemInOffHand().getType() == Material.PAPER && p.getInventory().getItemInOffHand().getItemMeta().getCustomModelData() ==  pl.getConfig().getInt("Features.Backpack.CustomModelData")){
+                    p.openInventory(p.getEnderChest());
+                    return;
+                }
             }
-        } else  {
-            p.sendMessage(prefix + DarkSkies.Colorcode(pl.getConfig().getString("Messages.No-BackPack")));
         }
-
+        p.sendMessage(prefix + DarkSkies.Colorcode(pl.getConfig().getString("Messages.No-BackPack")));
     }
 
 }

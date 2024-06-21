@@ -7,6 +7,19 @@ Features:
   Backpack:
     ## This Determinate What Texture The BackPack Has.
     CustomModelData: 10124
+  ## This Is For The Fishing Feature.
+  Fishing:
+    LootTables:
+      Common:
+        - DIAMOND_PICKAXE:
+            ItemName: "GoodPickaxe"
+            CustomModelData: -1
+            Durability: 2
+            TimesValuable: 2
+    Tools:
+      Name:
+        CustomModelData: -1
+        LootTable: "Common"
 ## All The Messages Used Inside The Plugin.
 Messages:
   No-BackPack: "&cYou Don't Have an backpack Equipped!"

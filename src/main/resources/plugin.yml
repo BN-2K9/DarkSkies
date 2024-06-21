@@ -1,5 +1,5 @@
 name: DarkSkies
-version: '${project.version}'
+version: 0.05
 main: me.bn_2k9.darkskies.DarkSkies
 api-version: '1.20'
 load: STARTUP
