@@ -12,12 +12,11 @@ Features:
     LootTables:
       Common:
         - DIAMOND_PICKAXE:
-            ItemName: "GoodPickaxe"
+            ItemName: "&aGoodPickaxe"
             CustomModelData: -1
             Durability: 2
-            TimesValuable: 2
     Tools:
-      Name:
+      Fishing Rod:
         CustomModelData: -1
         LootTable: "Common"
 ## All The Messages Used Inside The Plugin.
