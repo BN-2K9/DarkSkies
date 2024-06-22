@@ -11,8 +11,14 @@ Features:
   Fishing:
     LootTables:
       Common:
-        - DIAMOND_PICKAXE:
+        - 1:
+            Material: "DIAMOND_PICKAXE"
             ItemName: "&aGoodPickaxe"
+            CustomModelData: -1
+            Durability: 2
+        - 2:
+            Material: "DIAMOND_PICKAXE"
+            ItemName: "&aBetterPickaxe"
             CustomModelData: -1
             Durability: 2
     Tools:
