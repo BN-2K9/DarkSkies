@@ -132,15 +132,7 @@ public class Listeners implements Listener {
                 }
             }
 
-            if (pl.getConfig().contains("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable") + "."+ Num + ".Chance")) {
-                Random ran2 = new Random();
-                int value2 = ran2.nextInt(pl.getConfig().getInt("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable") + "."+ Num + ".Chance"));
-                if (value2 == 0) {
-                    e.getPlayer().getInventory().addItem(Item);
-                }
-            } else {
-                e.getPlayer().getInventory().addItem(Item);
-            }
+            e.getPlayer().getInventory().addItem(Item);
 
         }
     }
