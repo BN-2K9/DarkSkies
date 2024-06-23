@@ -5,8 +5,6 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +17,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class Listeners implements Listener {
 
@@ -63,7 +60,7 @@ public class Listeners implements Listener {
                                     if (pl.getConfig().contains("Features.Fishing.Tools." + Finished)) {
                                         Bukkit.getLogger().info(Finished);
                                         GiveLoot(e, Finished);
-                                        e.setCancelled(true);
+                                        e.setCancelled(pl.getConfig().getBoolean("Features.Fishing.RemoveVanillaLoot"));
                                         e.getHook().remove();
                                     }
                                 }
@@ -76,7 +73,7 @@ public class Listeners implements Listener {
                     if (pl.getConfig().contains("Features.Fishing.Tools." + Finished)) {
                         Bukkit.getLogger().info(Finished);
                         GiveLoot(e, Finished);
-                        e.setCancelled(true);
+                        e.setCancelled(pl.getConfig().getBoolean("Features.Fishing.RemoveVanillaLoot"));
                         e.getHook().remove();
                     }
                 }
@@ -135,7 +132,15 @@ public class Listeners implements Listener {
                 }
             }
 
-            e.getPlayer().getInventory().addItem(Item);
+            if (pl.getConfig().contains("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable") + "."+ Num + ".Chance")) {
+                Random ran2 = new Random();
+                int value2 = ran2.nextInt(pl.getConfig().getInt("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable") + "."+ Num + ".Chance"));
+                if (value2 == 0) {
+                    e.getPlayer().getInventory().addItem(Item);
+                }
+            } else {
+                e.getPlayer().getInventory().addItem(Item);
+            }
 
         }
     }

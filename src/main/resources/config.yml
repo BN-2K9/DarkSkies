@@ -11,6 +11,8 @@ Features:
   Fishing:
     ## This Enables the fishing feature
     Enabled: true
+    ## Enables and disables the vanilla loot
+    RemoveVanillaLoot: true
     ## In here you can set loot tables
     LootTables:
       ## Common is the name of the loot table you can add more tables by copying the table.
@@ -21,11 +23,13 @@ Features:
           ItemName: "&aGoodPickaxe"
           CustomModelData: -1
           Durability: 2
+          Chance: 1
         2:
           Material: "DIAMOND_PICKAXE"
           ItemName: "&aBetterPickaxe"
           CustomModelData: -1
           Durability: 2
+          Chance: 1
     ## here you can set what tools have custom drop's
     Tools:
       ## Here you display the name you see in big (Item Name) NOT the material name.
