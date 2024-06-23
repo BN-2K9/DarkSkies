@@ -7,3 +7,5 @@ authors: [BN_2K9]
 commands:
   Backpack:
     aliases: b
+  dhelp:
+    aliases: h

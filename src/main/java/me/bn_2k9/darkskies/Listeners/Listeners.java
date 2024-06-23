@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,12 +19,26 @@ import java.util.Random;
 public class Listeners implements Listener {
 
     static Plugin pl = DarkSkies.getPlugin(DarkSkies.class);
+
+
+    public void OnPlayerCommandpreprocces(PlayerCommandPreprocessEvent e) {
+        if (pl.getConfig().getBoolean("Features.HelpOverride.Enabled")) {
+            if (e.getMessage().equals("/help") || e.getMessage().equals("/?")) {
+                e.setMessage("/dhelp");
+            }
+        }
+    }
+
+
+
     @EventHandler
     public void OnPlayerFish(PlayerFishEvent e) {
 
+        if (pl.getConfig().getBoolean("Features.Fishing.Enabled")) {
+
+        }
         String nameone = e.getPlayer().getInventory().getItemInMainHand().getType().name().toLowerCase().replace("_", " ");
         String Finished = WordUtils.capitalizeFully(nameone);
-        Bukkit.getLogger().info(Finished);
 
         if (e.getCaught() instanceof Item) {
 
@@ -33,14 +48,14 @@ public class Listeners implements Listener {
                     Finished = pl.getConfig().getString("Features.Fishing.Tools." + e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName());
                 }
 
-                if (pl.getConfig().getInt("Features.Fishing.Tools." + e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName() + ".CustomModelData")  != -1) {
+                if (pl.getConfig().getInt("Features.Fishing.Tools." + Finished + ".CustomModelData")  != -1) {
 
                     if (e.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasCustomModelData()) {
                         if (e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getCustomModelData() == pl.getConfig().getInt("Features.Fishing.Tools." + Finished + ".CustomModelData")) {
                             if (pl.getConfig().contains("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + Finished + ".LootTable"))) {
                                 GiveLoot(e, Finished);
-                                e.getHook().remove();
                                 e.setCancelled(true);
+                                e.getHook().remove();
                             }
 
                         }
@@ -49,8 +64,8 @@ public class Listeners implements Listener {
                 }
             } else {
                 GiveLoot(e, Finished);
-                e.getHook().remove();
                 e.setCancelled(true);
+                e.getHook().remove();
             }
 
         }
@@ -79,7 +94,7 @@ public class Listeners implements Listener {
                 Bukkit.getLogger().info("Added Name");
                 ItemMeta Im = Item.getItemMeta();
 
-                Im.setDisplayName(pl.getConfig().getString("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable") + "."+ Num + ".ItemName"));
+                Im.setDisplayName(DarkSkies.Colorcode(pl.getConfig().getString("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable") + "."+ Num + ".ItemName")));
 
                 Item.setItemMeta(Im);
             }
@@ -90,7 +105,9 @@ public class Listeners implements Listener {
 
                 Item.setItemMeta(Im);
             }
+            if (pl.getConfig().getInt("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable") + "."+ Num + ".Durability") != -1) {
 
+            }
             e.getPlayer().getInventory().addItem(Item);
 
         }

@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
+
 public final class DarkSkies extends JavaPlugin {
 
     Plugin p = this;
@@ -31,18 +33,36 @@ public final class DarkSkies extends JavaPlugin {
         Bukkit.getLogger().info(Colorcode(p.getConfig().getString("Plugin.Prefix")) + " Shutdown");
 
     }
-
+    // Listens to all the commands
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
+            // The command listener for the backpack.
             if (command.getName().equals("Backpack")) {
 
                 Backpack.openBackpack(sender.getServer().getPlayer(sender.getName()));
 
             }
+
+            if (command.getName().equals("dhelp")) {
+                if (sender.hasPermission(p.getConfig().getString("Features.HelpOverride.StaffPermission"))) {
+                    Help("Features.HelpOverride.StaffHelp", sender);
+                } else {
+                    Help("Features.HelpOverride.PlayerHelp", sender);
+                }
+
+
+            }
         }
 
         return true;
+    }
+
+    public void Help(String l, CommandSender send) {
+        for (String s : p.getConfig().getStringList(l)) {
+            send.sendMessage(Colorcode(s));
+        }
+
     }
 
     public static String Colorcode (String s) {

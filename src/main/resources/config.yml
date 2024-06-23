@@ -9,22 +9,36 @@ Features:
     CustomModelData: 10124
   ## This Is For The Fishing Feature.
   Fishing:
+    ## This Enables the fishing feature
+    Enabled: true
+    ## In here you can set loot tables
     LootTables:
+      ## Common is the name of the loot table you can add more tables by copying the table.
       Common:
-        - 1:
-            Material: "DIAMOND_PICKAXE"
-            ItemName: "&aGoodPickaxe"
-            CustomModelData: -1
-            Durability: 2
-        - 2:
-            Material: "DIAMOND_PICKAXE"
-            ItemName: "&aBetterPickaxe"
-            CustomModelData: -1
-            Durability: 2
+        ## This is the index when you want to add an item to the loot table that is randomly distributed. You just count 1 up.
+        1:
+          Material: "DIAMOND_PICKAXE"
+          ItemName: "&aGoodPickaxe"
+          CustomModelData: -1
+          Durability: 2
+        2:
+          Material: "DIAMOND_PICKAXE"
+          ItemName: "&aBetterPickaxe"
+          CustomModelData: -1
+          Durability: 2
+    ## here you can set what tools have custom drop's
     Tools:
+      ## Here you display the name you see in big (Item Name) NOT the material name.
       Fishing Rod:
         CustomModelData: -1
         LootTable: "Common"
+  HelpOverride:
+   Enabled: true
+   StaffPermission: "DarkSkies.StaffHelp"
+   PlayerHelp:
+     - "Hello"
+   StaffHelp:
+     - "hi"
 ## All The Messages Used Inside The Plugin.
 Messages:
   No-BackPack: "&cYou Don't Have an backpack Equipped!"
