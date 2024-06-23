@@ -36,9 +36,13 @@ Features:
    Enabled: true
    StaffPermission: "DarkSkies.StaffHelp"
    PlayerHelp:
-     - "Hello"
+     - "&8---{ &b&lPlayer Help &8}---"
+     - "&7- Add Something Here"
+     - "&7- And Add Something Here"
    StaffHelp:
-     - "hi"
+     - "&8---{ &c&lStaff Help &8}---"
+     - "&7- Add Something Here"
+     - "&7- And Add Something Here"
 ## All The Messages Used Inside The Plugin.
 Messages:
   No-BackPack: "&cYou Don't Have an backpack Equipped!"

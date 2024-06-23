@@ -5,6 +5,8 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,6 +19,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class Listeners implements Listener {
 
@@ -27,7 +30,6 @@ public class Listeners implements Listener {
         if (pl.getConfig().getBoolean("Features.HelpOverride.Enabled")) {
             if (e.getMessage().equals("/help") || e.getMessage().equals("/?")) {
                 e.setMessage("/dhelp");
-                e.setCancelled(true);
             }
         }
     }
@@ -86,7 +88,7 @@ public class Listeners implements Listener {
     public static void GiveLoot(PlayerFishEvent e, String s) {
 
         Bukkit.getLogger().info(pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable"));
-        List Loot = pl.getConfig().getList("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable"));
+        List Loot = pl.getConfig().getConfigurationSection("Features.Fishing.LootTables." + pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable")).getKeys(false).stream().toList();
         if (Loot != null) {
             Bukkit.getLogger().info("Not null");
             Random ran = new Random();
