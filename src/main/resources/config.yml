@@ -6,7 +6,9 @@ Features:
   ## The BackPack Feature.
   Backpack:
     ## This Determinate What Texture The BackPack Has.
-    CustomModelData: 10124
+    CustomModelData:
+      - 10124
+      - 1
   ## This Is For The Fishing Feature.
   Fishing:
     ## This Enables the fishing feature

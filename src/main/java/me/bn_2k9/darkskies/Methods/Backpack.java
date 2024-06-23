@@ -9,9 +9,9 @@ public class Backpack {
     static Plugin pl = DarkSkies.getPlugin(DarkSkies.class);
     static String prefix = DarkSkies.Colorcode(pl.getConfig().getString("Plugin.Prefix"));
     public static void openBackpack(Player p) {
-        if (p.getInventory().getItemInMainHand().getType() != Material.AIR) {
+        if (p.getInventory().getItemInOffHand().getType() != Material.AIR) {
             if (p.getInventory().getItemInOffHand().getItemMeta().hasCustomModelData()) {
-                if (p.getInventory().getItemInOffHand().getType() == Material.PAPER && p.getInventory().getItemInOffHand().getItemMeta().getCustomModelData() ==  pl.getConfig().getInt("Features.Backpack.CustomModelData")){
+                if (p.getInventory().getItemInOffHand().getType() == Material.PAPER &&  pl.getConfig().getIntegerList("Features.Backpack.CustomModelData").contains(p.getInventory().getItemInOffHand().getItemMeta().getCustomModelData())){
                     p.openInventory(p.getEnderChest());
                     return;
                 }
