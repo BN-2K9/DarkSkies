@@ -3,6 +3,7 @@ package me.bn_2k9.darkskies.Listeners;
 import me.bn_2k9.darkskies.DarkSkies;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
@@ -39,6 +40,7 @@ public class Listeners implements Listener {
         }
         String nameone = e.getPlayer().getInventory().getItemInMainHand().getType().name().toLowerCase().replace("_", " ");
         String Finished = WordUtils.capitalizeFully(nameone);
+        Finished = ChatColor.stripColor(Finished);
 
         if (e.getCaught() instanceof Item) {
 
@@ -46,6 +48,7 @@ public class Listeners implements Listener {
 
                 if (pl.getConfig().contains("Features.Fishing.Tools." + e.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasDisplayName()) ) {
                     Finished = pl.getConfig().getString("Features.Fishing.Tools." + e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName());
+                    Finished = ChatColor.stripColor(Finished);
                 }
 
                 if (pl.getConfig().getInt("Features.Fishing.Tools." + Finished + ".CustomModelData")  != -1) {

@@ -50,8 +50,6 @@ public final class DarkSkies extends JavaPlugin {
                 } else {
                     Help("Features.HelpOverride.PlayerHelp", sender);
                 }
-
-
             }
         }
 
