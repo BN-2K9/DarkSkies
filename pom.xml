@@ -6,7 +6,7 @@
 
     <groupId>com.bn_2k9</groupId>
     <artifactId>DarkSkies</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.6</version>
     <packaging>jar</packaging>
 
     <name>DarkSkies</name>
@@ -66,6 +66,11 @@
             <artifactId>spigot-api</artifactId>
             <version>1.20-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.4</version>
         </dependency>
     </dependencies>
 </project>
