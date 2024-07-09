@@ -1,6 +1,7 @@
 package me.bn_2k9.darkskies;
 
 import me.bn_2k9.darkskies.Listeners.Listeners;
+import me.bn_2k9.darkskies.Listeners.Stones;
 import me.bn_2k9.darkskies.Methods.Backpack;
 import me.bn_2k9.darkskies.Methods.Data;
 import org.bukkit.Bukkit;
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
@@ -24,6 +26,15 @@ public final class DarkSkies extends JavaPlugin {
         p.saveDefaultConfig();
 
         Bukkit.getLogger().info(Colorcode(p.getConfig().getString("Plugin.Prefix")) + " Started");
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    Stones.CheckStones(player);
+                }
+            }
+        }.ru
 
     }
 
