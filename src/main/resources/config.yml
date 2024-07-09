@@ -15,6 +15,8 @@ Features:
     Enabled: true
     ## Enables and disables the vanilla loot
     RemoveVanillaLoot: true
+    ## If you set it to -1 it means it is disabled.
+    ChanceOfGettingAnyLoot: -1
     ## In here you can set loot tables
     LootTables:
       ## Common is the name of the loot table you can add more tables by copying the table.
@@ -47,6 +49,20 @@ Features:
      - "&8---{ &c&lStaff Help &8}---"
      - "&7- Add Something Here"
      - "&7- And Add Something Here"
+  Stones:
+    WaterMarkLine: 0
+    WaterMarkLore: "&f"
+    TierLine: 2
+    StoneSlots:
+      - 9
+      - 10
+    ## Stones:
+    FireProtStone: "&c&lFire Stone"
+    Nightvisstone: "&2Night Stone"
+    FallprotStone: "&fFalling Stone"
+    Foodstone: "&1&lFeeding Stone"
+    Healthstone: "&c&lHealth Stone"
 ## All The Messages Used Inside The Plugin.
 Messages:
   No-BackPack: "&cYou Don't Have an backpack Equipped!"
+  GetItem: "&a&lYou Found An Hidden Treasure!, You Found: %ITEM%"

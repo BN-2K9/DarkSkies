@@ -6,8 +6,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Listeners implements Listener {
@@ -80,6 +84,100 @@ public class Listeners implements Listener {
 
     }
 
+    @EventHandler
+    public void falldamage(EntityDamageEvent e) {
+
+        Plugin pl = DarkSkies.getPlugin(DarkSkies.class);
+
+        if (e.getEntity() instanceof Player && e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            Player p = ((Player) e.getEntity()).getPlayer();
+            if (Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FallprotStone")) != -1) {
+                if (Stones.Checktier(p, Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FallprotStone"))) == 1) {
+                    e.setDamage(e.getDamage() / 100 * 75);
+                }
+                if (Stones.Checktier(p, Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FallprotStone"))) == 2) {
+                    e.setDamage(e.getDamage() / 100 * 50);
+                }
+                if (Stones.Checktier(p, Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FallprotStone"))) == 3) {
+                    e.setDamage(e.getDamage() / 100 * 25);
+                }
+                if (Stones.Checktier(p, Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FallprotStone"))) == 4) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+        if (e.getEntity() instanceof Player) {
+            if (e.getCause() == EntityDamageEvent.DamageCause.FIRE || e.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK) {
+                Player p = ((Player) e.getEntity()).getPlayer();
+                if (Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FireProtStone")) != -1) {
+                    if (Stones.Checktier(p, Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FireProtStone"))) == 1) {
+                        e.setDamage(e.getDamage() / 100 * 50);
+                    }
+                    if (Stones.Checktier(p, Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FireProtStone"))) == 2) {
+                        e.setDamage(e.getDamage() / 100 * 25);
+                    }
+                }
+            }
+        }
+
+        if (e.getEntity() instanceof Player && e.getCause() == EntityDamageEvent.DamageCause.LAVA) {
+            Player p = ((Player) e.getEntity()).getPlayer();
+            if (Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FireProtStone")) != -1) {
+                if (Stones.Checktier(p, Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.FireProtStone"))) == 3) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+
+
+    }
+
+    @EventHandler
+    public void hunger(FoodLevelChangeEvent e){
+        Plugin pl = DarkSkies.getPlugin(DarkSkies.class);
+        Player p = ((Player) e.getEntity()).getPlayer();
+        if (Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.Foodstone")) != -1) {
+            if (Stones.Checktier(p, Stones.Checkifhasstone(p, pl.getConfig().getString("Stones.Foodstone"))) == 1) {
+                if (e.getFoodLevel() <= 14) {
+                    Bukkit.getLogger().info(p.getName());
+                    ItemStack i = new ItemStack(Material.BREAD, 1);
+                    if (p.getInventory().contains(Material.BREAD)) {
+                        consumeItem(p, 1, Material.BREAD);
+                        e.setFoodLevel(e.getFoodLevel() + 6);
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean consumeItem(Player player, int count, Material mat) {
+        Map<Integer, ? extends ItemStack> ammo = player.getInventory().all(mat);
+
+        int found = 0;
+        for (ItemStack stack : ammo.values())
+            found += stack.getAmount();
+        if (count > found)
+            return false;
+
+        for (Integer index : ammo.keySet()) {
+            ItemStack stack = ammo.get(index);
+
+            int removed = Math.min(count, stack.getAmount());
+            count -= removed;
+
+            if (stack.getAmount() == removed)
+                player.getInventory().setItem(index, null);
+            else
+                stack.setAmount(stack.getAmount() - removed);
+
+            if (count <= 0)
+                break;
+        }
+
+        player.updateInventory();
+        return true;
+    }
+
     public static void GiveLoot(PlayerFishEvent e, String s) {
 
         Bukkit.getLogger().info(pl.getConfig().getString("Features.Fishing.Tools." + s + ".LootTable"));
@@ -130,7 +228,16 @@ public class Listeners implements Listener {
                 }
             }
 
-            e.getPlayer().getInventory().addItem(Item);
+            if (pl.getConfig().getInt("Features.Fishing.ChanceOfGettingAnyLoot") != -1) {
+                Random ran2 = new Random();
+                int value2 = ran2.nextInt(Loot.size());
+                if (value2 == 0) {
+                    e.getPlayer().getInventory().addItem(Item);
+                    e.getPlayer().sendMessage(DarkSkies.Colorcode(pl.getConfig().getString("Messages.GetItem").replace("%ITEM%", Item.getItemMeta().getDisplayName())) );
+                }
+            } else {
+                e.getPlayer().getInventory().addItem(Item);
+            }
 
         }
     }
