@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -34,7 +35,7 @@ public final class DarkSkies extends JavaPlugin {
                     Stones.CheckStones(player);
                 }
             }
-        }.ru
+        }.runTaskTimer(this, 20L * 10L /*<-- the initial delay */, 20L * 2L /*<-- the interval */);
 
     }
 
@@ -61,6 +62,17 @@ public final class DarkSkies extends JavaPlugin {
                     Help("Features.HelpOverride.StaffHelp", sender);
                 } else {
                     Help("Features.HelpOverride.PlayerHelp", sender);
+                }
+            }
+
+            if (command.getName().equals("setcustommodeldata")) {
+                if (args.length != 0) {
+                    ItemMeta i = ((Player) sender).getPlayer().getInventory().getItemInMainHand().getItemMeta();
+                    i.setCustomModelData(Integer.parseInt(args[0]));
+                    ((Player) sender).getPlayer().getInventory().getItemInMainHand().setItemMeta(i);
+                    sender.sendMessage("Added To The Item");
+                } else {
+                    sender.sendMessage("Please Provide an number");
                 }
             }
         }
