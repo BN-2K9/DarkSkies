@@ -62,6 +62,8 @@ Features:
     FallprotStone: "&fFalling Stone"
     Foodstone: "&1&lFeeding Stone"
     Healthstone: "&c&lHealth Stone"
+    Speedstone: "&b&lSpeed Stone"
+    HasteStone: "&6&lHasty Stone"
 ## All The Messages Used Inside The Plugin.
 Messages:
   No-BackPack: "&cYou Don't Have an backpack Equipped!"

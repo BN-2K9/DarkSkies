@@ -9,3 +9,5 @@ commands:
     aliases: b
   dhelp:
     description: ":p"
+  setcustommodeldata:
+    description: "e"

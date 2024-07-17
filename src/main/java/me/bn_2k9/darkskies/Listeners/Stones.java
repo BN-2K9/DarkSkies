@@ -13,11 +13,12 @@ public class Stones {
 
     public static void CheckStones(Player play) {
 
-        PotionEffect Nightvis = new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 225, true, true, false);
-        PotionEffect healthpot = new PotionEffect(PotionEffectType.HEALTH_BOOST, -1, 0, true, true, false);
+        Integer potdur = 3*20;
 
-        play.removePotionEffect(healthpot.getType());
-        play.removePotionEffect(Nightvis.getType());
+        PotionEffect Nightvis = new PotionEffect(PotionEffectType.NIGHT_VISION, 13, 225, true, true, false);
+        PotionEffect healthpot = new PotionEffect(PotionEffectType.HEALTH_BOOST, potdur, 0, true, true, false);
+        PotionEffect Haste = new PotionEffect(PotionEffectType.FAST_DIGGING, potdur, 0, true, true, false);
+        PotionEffect Speed = new PotionEffect(PotionEffectType.SPEED, potdur, 0, true, true, false);
 
         for (Integer e : p.getConfig().getIntegerList("Features.Stones.StoneSlots")) {
 
@@ -65,7 +66,37 @@ public class Stones {
                         }
                     }
 
+                    if (play.getInventory().getItem(e).hasItemMeta()) {
+                        if (play.getInventory().getItem(e).getItemMeta().getDisplayName().equals(DarkSkies.Colorcode(p.getConfig().getString("Stones.Speedstone")))) {
+                            if (!play.getActivePotionEffects().contains(Speed)) {
+                                if (Checktier(play, Checkifhasstone(play, p.getConfig().getString("Stones.Speedstone"))) == 1) {
+                                    play.addPotionEffect(Speed);
+                                }
+                                if (Checktier(play, Checkifhasstone(play, p.getConfig().getString("Stones.Speedstone"))) == 2) {
+                                    Speed = new PotionEffect(PotionEffectType.SPEED, potdur, 1, true, true, false);
+                                    play.addPotionEffect(Speed);
+                                }
+                            }
+                        }
+                    }
 
+                    if (play.getInventory().getItem(e).hasItemMeta()) {
+                        if (play.getInventory().getItem(e).getItemMeta().getDisplayName().equals(DarkSkies.Colorcode(p.getConfig().getString("Stones.HasteStone")))) {
+                            if (!play.getActivePotionEffects().contains(Haste)) {
+                                if (Checktier(play, Checkifhasstone(play, p.getConfig().getString("Stones.HasteStone"))) == 1) {
+                                    play.addPotionEffect(Haste);
+                                }
+                                if (Checktier(play, Checkifhasstone(play, p.getConfig().getString("Stones.HasteStone"))) == 2) {
+                                    Haste = new PotionEffect(PotionEffectType.FAST_DIGGING, potdur, 1, true, true, false);
+                                    play.addPotionEffect(Haste);
+                                }
+                                if (Checktier(play, Checkifhasstone(play, p.getConfig().getString("Stones.HasteStone"))) == 3) {
+                                    Haste = new PotionEffect(PotionEffectType.FAST_DIGGING, potdur, 2, true, true, false);
+                                    play.addPotionEffect(Haste);
+                                }
+                            }
+                        }
+                    }
 
                 }
 
